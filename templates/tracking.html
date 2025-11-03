@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background-color: #004d26;
+      padding: 8px;
+    }
+
+    .dashboard-container {
+      max-width: 1680px;
+      background: #fff;
+      border-radius: 25px;
+      display: flex;
+      overflow: hidden;
+      margin: auto;
+      height: 760px;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 230px;
+      background-color: #fff;
+      border-right: 1px solid #eee;
+      border-radius: 15px 0 0 15px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .logo-section {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-align: center;
+    }
+
+    .logo-section img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .menu {
+      list-style: none;
+      margin-top: 20px;
+    }
+
+    .menu li {
+      margin: 15px 0;
+      padding: 8px 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+   
+
+    .logout {
+      text-align: center;
+     
+      color: #0f0101;
+      border-radius: 8px;
+      padding: 10px;
+      text-decoration: none;
+    }
+
+    /* Main Content */
+    .main-content {
+      flex: 1;
+      background-color: #f9f9f9;
+      border-radius: 0 15px 15px 0;
+      padding: 20px 30px;
+      overflow-y: auto;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .topbar h2 {
+      color: #004d26;
+    }
+
+    /* Map Section */
+    .map-section {
+      background: #fff;
+      border-radius: 15px;
+      padding: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+
+    .map-section img {
+      width: 100%;
+      height: 260px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    /* Table Styles */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      background-color: #fff;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .data-table thead {
+      background-color: #006d34;
+      color: #fff;
+    }
+
+    .data-table th, .data-table td {
+      text-align: left;
+      padding: 12px 16px;
+      font-size: 14px;
+    }
+
+    .data-table th {
+      font-weight: 600;
+    }
+
+    .data-table tbody tr:nth-child(even) {
+      background-color: #f2fdf5;
+    }
+
+    .data-table tbody tr:hover {
+      background-color: #e9f9ee;
+    }
+
+    .data-table a {
+      color: #007bff;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .data-table a:hover {
+      text-decoration: underline;
+    }
+.menu li a {
+  text-decoration: none;
+  color: #333;
+  display: block;
+  padding: 10px 15px;
+  border-radius: 6px;
+  transition: 0.3s;
+}
+
+.menu li.active a {
+ 
+  color: rgb(6, 6, 6);
+}
+
+  </style>
+</head>
+<body>
+  <div class="dashboard-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="logo-section">
+        <img src="https://i.pinimg.com/1200x/96/4c/c7/964cc747066dc0434dd458071c309b22.jpg" alt="logo">
+        <p style="margin:0; font-size:16px; font-weight:600; color:#333;">Welcome, Admin</p>
+      </div>
+
+      
+   <ul class="menu">
+  <li class="{% if request.path == '/superadmin/dashboard/' %}active{% endif %}">
+    <a href="{% url 'admin_dashboard' %}">📊 Dashboard</a>
+  </li>
+
+  <li class="{% if request.path == '/admin_tracking/' %}active{% endif %}">
+    <a href="{% url 'admin_tracking' %}">📍 Tracking</a>
+  </li>
+
+  <li class="{% if request.path == '/analytic/' %}active{% endif %}">
+    <a href="{% url 'analytic' %}">📈 Analytics</a>
+  </li>
+</ul>
+
+<a href="{% url 'logout' %}" class="logout">🚪 Logout</a>
+
+
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="topbar">
+        <h2>Animal Conflict Tracking</h2>
+        <div class="top-icons">
+          <button>⚙️</button>
+          <button>🔔</button>
+        </div>
+      </div>
+
+      <!-- Map Section -->
+    <div class="map-section">
+  <iframe 
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3920.4121345732775!2d76.25672897476582!3d11.283127688918481!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba61f4dc47abf8d%3A0xdda81d246b2e4e62!2sNilambur%2C%20Kerala!5e0!3m2!1sen!2sin!4v1730578909876!5m2!1sen!2sin" 
+    width="100%" 
+    height="300" 
+    style="border:0; border-radius: 15px;" 
+    allowfullscreen="" 
+    loading="lazy">
+  </iframe>
+</div>
+
+
+      <!-- Data Table -->
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th><input type="checkbox"></th>
+            <th>Animal ID</th>
+            <th>Year</th>
+            <th>Group</th>
+            <th>Name</th>
+            <th>Weight</th>
+            <th>Type</th>
+            <th>Conflict</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><input type="checkbox"></td>
+            <td><a href="{% url 'animalid1' %}">NWUPD1</a></td>
+            <td>2019</td>
+            <td>TUSK01</td>
+            <td>Arikomban</td>
+            <td>&lt;= 8,500 pounds</td>
+            <td>Elephant</td>
+            <td>Low</td>
+          </tr>
+          <tr>
+            <td><input type="checkbox"></td>
+            <td><a href="{% url 'animalid2' %}">NWUPD2</a></td>
+            <td>2020</td>
+            <td>TUSK02</td>
+            <td>Komban</td>
+            <td>&lt;= 8,500 pounds</td>
+            <td>Elephant</td>
+            <td>High</td>
+          </tr>
+          <tr>
+            <td><input type="checkbox"></td>
+            <td><a href="{% url 'animalid3' %}">NWUPD3</a></td>
+            <td>2021</td>
+            <td>TIG01</td>
+            <td>Avni</td>
+            <td>&lt;= 8,500 pounds</td>
+            <td>Tiger</td>
+            <td>Medium</td>
+          </tr>
+          <tr>
+            <td><input type="checkbox"></td>
+            <td><a href="{% url 'animalid4' %}">NWUPD4</a></td>
+            <td>2018</td>
+            <td>MONK01</td>
+            <td>Altima</td>
+            <td>&lt;= 8,500 pounds</td>
+            <td>Monkey</td>
+            <td>Low</td>
+          </tr>
+          <tr>
+            <td><input type="checkbox"></td>
+            <td><a href="{% url 'animalid5' %}">NWUPD5</a></td>
+            <td>2022</td>
+            <td>TIG01</td>
+            <td>Ustad</td>
+            <td>&lt;= 8,500 pounds</td>
+            <td>Tiger</td>
+            <td>High</td>
+          </tr>
+        </tbody>
+      </table>
+    </main>
+  </div>
+</body>
+</html>

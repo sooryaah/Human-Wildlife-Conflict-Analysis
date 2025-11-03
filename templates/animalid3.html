@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Avni (Tiger) Details</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+    body {
+      background-color: #004d26; display: flex; justify-content: center; align-items: center;
+      height: 100vh; overflow: hidden;
+    }
+    .login-container {
+      width: 100%; max-width: 1680px; background-color: #fff; border-radius: 25px; overflow: hidden;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.3); padding: 20px 30px; display: flex; flex-direction: column;
+      justify-content: space-between; height: 98vh;
+    }
+    .logo-section { display: flex; align-items: center; gap: 15px; }
+    .logo-section img { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; }
+    .logo-section p { margin: 0; font-size: 18px; font-weight: 600; color: #333; }
+    .back-btn {
+      background-color: #0a662e; color: white; border: none; padding: 8px 16px; border-radius: 6px;
+      cursor: pointer; font-size: 14px; transition: 0.3s; align-self: flex-start; margin-top: 10px;
+    }
+    .back-btn:hover { background-color: #064b22; }
+    .map-section {
+      background-color: #eaf5ec; border-radius: 20px; overflow: hidden; text-align: center;
+      padding: 10px; display: flex; flex-direction: column; align-items: center;
+    }
+    iframe { width: 100%; height: 220px; border: none; border-radius: 15px; }
+    .map-label { font-size: 16px; color: #b30000; font-weight: 600; margin-top: 6px; }
+    .details-container {
+      display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; padding: 15px 10px 0;
+    }
+    .details-text { flex: 2; }
+    .details-text h3 { font-size: 20px; color: #0a662e; margin-bottom: 5px; }
+    .details-text p { margin-top: 8px; line-height: 1.5; font-size: 14px; text-align: justify; }
+    .details-image { flex: 1; text-align: right; }
+    .details-image img { width: 100%; max-width: 260px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+    @media (max-width: 1000px) {
+      .login-container { height: auto; overflow-y: auto; }
+      iframe { width: 100%; height: 200px; }
+      .details-container { flex-direction: column; text-align: center; }
+      .details-image { text-align: center; }
+      .details-image img { max-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-container">
+
+    <div class="logo-section">
+      <img src="https://i.pinimg.com/1200x/96/4c/c7/964cc747066dc0434dd458071c309b22.jpg" alt="logo">
+      <p>Welcome, Admin</p>
+    </div>
+
+    <button class="back-btn" onclick="history.back()">← Back</button>
+
+    <div class="map-section">
+      <iframe 
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3939.961328651245!2d76.28056341525498!3d11.276368091995994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba61d1efb3b4d89%3A0x25d8db04d6cfb9e2!2sNilambur%20-%20Forest%20and%20River%20View%20Point!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
+        allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+      <div class="map-label">Nilambur Forest Region</div>
+    </div>
+
+    <div class="details-container">
+      <div class="details-text">
+        <h3>AVNI (NWUPD3 – Tiger)</h3>
+        <p><strong>ID:</strong> TIG01</p>
+        <p><strong>Year:</strong> 2021</p>
+        <p><strong>Weight Category:</strong> ≤ 8,500 pounds</p>
+        <p><strong>Species:</strong> Tiger</p>
+        <p><strong>Risk Level:</strong> Medium</p>
+        <p>
+          Avni, a female tiger recorded in 2021, has been tracked across the Nilambur and adjoining forest regions.
+          Known for her territorial nature, Avni often roams the deeper forest areas but occasionally approaches
+          agricultural fields in search of prey. While she generally avoids human contact, there have been isolated
+          sightings near settlements.
+          <br><br>
+          The forest department has placed Avni under **Medium Risk** observation due to occasional livestock attacks.
+          Motion-triggered cameras and patrol teams help monitor her movements to ensure community safety and prevent
+          further conflict between humans and wildlife.
+        </p>
+      </div>
+
+      <div class="details-image">
+        <img src="https://tse4.mm.bing.net/th/id/OIP.NQzMT76vdnpy9MRBOnQeCQAAAA?pid=Api&P=0&h=180" alt="Avni Tiger Image">
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background-color: #004d26;
+      padding: 8px;
+    }
+
+    .dashboard-container {
+      max-width: 1680px;
+      background: #fff;
+      border-radius: 25px;
+      display: flex;
+      overflow: hidden;
+      margin: auto;
+      height: 760px;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 230px;
+      background-color: #fff;
+      border-right: 1px solid #eee;
+      border-radius: 15px 0 0 15px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .logo-section {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-align: center;
+    }
+
+    .logo-section img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .menu {
+      list-style: none;
+      margin-top: 20px;
+    }
+
+    .menu li {
+      margin: 15px 0;
+      padding: 8px 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+  
+
+    .logout {
+      text-align: center;
+   
+      color: #050404;
+      border-radius: 8px;
+      padding: 10px;
+      text-decoration: none;
+    }
+
+    /* Main Content */
+    .main-content {
+      flex: 1;
+      background-color: #f9f9f9;
+      border-radius: 0 15px 15px 0;
+      padding: 20px 30px;
+      overflow-y: auto;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .topbar h2 {
+      color: #004d26;
+    }
+
+    /* Table Styles */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      background-color: #fff;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .data-table thead {
+      background-color: #006d34;
+      color: #fff;
+    }
+
+    .data-table th, .data-table td {
+      text-align: left;
+      padding: 12px 16px;
+      font-size: 14px;
+    }
+
+    .data-table th {
+      font-weight: 600;
+    }
+
+    .data-table tbody tr:nth-child(even) {
+      background-color: #f2fdf5;
+    }
+
+    .data-table tbody tr:hover {
+      background-color: #e9f9ee;
+    }
+
+    .data-table a {
+      color: #007bff;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .data-table a:hover {
+      text-decoration: underline;
+    }
+.menu li a {
+  text-decoration: none;
+  color: #333;
+  display: block;
+  padding: 10px 15px;
+  border-radius: 6px;
+  transition: 0.3s;
+}
+
+.menu li.active a {
+ 
+  color: rgb(5, 5, 5);
+}
+
+  </style>
+</head>
+<body>
+  <div class="dashboard-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="logo-section">
+        <img src="https://i.pinimg.com/1200x/96/4c/c7/964cc747066dc0434dd458071c309b22.jpg" alt="logo">
+        <p style="margin:0; font-size:16px; font-weight:600; color:#333;">Welcome, Admin</p>
+      </div>
+
+     <ul class="menu">
+  <li class="{% if request.path == '/superadmin/dashboard/' %}active{% endif %}">
+    <a href="{% url 'admin_dashboard' %}">📊 Dashboard</a>
+  </li>
+
+  <li class="{% if request.path == '/admin_tracking/' %}active{% endif %}">
+    <a href="{% url 'admin_tracking' %}">📍 Tracking</a>
+  </li>
+
+  <li class="{% if request.path == '/analytic/' %}active{% endif %}">
+    <a href="{% url 'analytic' %}">📈 Analytics</a>
+  </li>
+</ul>
+
+<a href="{% url 'logout' %}" class="logout">🚪 Logout</a>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="topbar">
+        <h2>Crop Damage Report</h2>
+        <div class="top-icons">
+          <button>⚙️</button>
+          <button>🔔</button>
+        </div>
+      </div>
+
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th><input type="checkbox"></th>
+            <th>Crop ID</th>
+            <th>Year</th>
+            <th>Area</th>
+            <th>Yield (kg/ha)</th>
+            <th>Crop Damage</th>
+            <th>Type</th>
+            <th>Seasonal</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><input type="checkbox"></td>
+            <td><a href="#">CRPD01</a></td>
+            <td>2019</td>
+            <td>2.5 Hectres</td>
+            <td>2,200</td>
+            <td>35% (wild boar damage)</td>
+            <td>Maize</td>
+            <td>Yes</td>
+          </tr>
+          <tr>
+            <td><input type="checkbox"></td>
+            <td><a href="#">CRPD02</a></td>
+            <td>2022</td>
+            <td>5 Hectres</td>
+            <td>3,500</td>
+            <td>20% (elephant trampling)</td>
+            <td>Paddy</td>
+            <td>Yes</td>
+          </tr>
+          <tr>
+            <td><input type="checkbox"></td>
+            <td><a href="#">CRPD03</a></td>
+            <td>2024</td>
+            <td>7.5 Hectres</td>
+            <td>10,500</td>
+            <td>10% (nilgai grazing)</td>
+            <td>Wheat</td>
+            <td>Yes</td>
+          </tr>
+          <tr>
+            <td><input type="checkbox"></td>
+            <td><a href="#">CRPD04</a></td>
+            <td>2020</td>
+            <td>3 Hectres</td>
+            <td>3,000</td>
+            <td>25% (monkey raids)</td>
+            <td>Sugarcane</td>
+            <td>No</td>
+          </tr>
+          <tr>
+            <td><input type="checkbox"></td>
+            <td><a href="#">CRPD05</a></td>
+            <td>2023</td>
+            <td>1.75 Hectres</td>
+            <td>2,000</td>
+            <td>15% (porcupine digging)</td>
+            <td>Groundnut</td>
+            <td>Yes</td>
+          </tr>
+          <tr>
+            <td><input type="checkbox"></td>
+            <td><a href="#">CRPD06</a></td>
+            <td>2025</td>
+            <td>4 Hectres</td>
+            <td>3,500</td>
+            <td>25% (nilgai grazing)</td>
+            <td>Cotton</td>
+            <td>Yes</td>
+          </tr>
+          <tr>
+            <td><input type="checkbox"></td>
+            <td><a href="#">CRPD07</a></td>
+            <td>2021</td>
+            <td>3.5 Hectres</td>
+            <td>4,000</td>
+            <td>10% (porcupine digging)</td>
+            <td>Groundnut</td>
+            <td>Yes</td>
+          </tr>
+          <tr>
+            <td><input type="checkbox"></td>
+            <td><a href="#">CRPD08</a></td>
+            <td>2019</td>
+            <td>2 Hectres</td>
+            <td>1,800</td>
+            <td>15% (porcupine digging)</td>
+            <td>Groundnut</td>
+            <td>Yes</td>
+          </tr>
+          <tr>
+            <td><input type="checkbox"></td>
+            <td><a href="#">CRPD09</a></td>
+            <td>2022</td>
+            <td>6 Hectres</td>
+            <td>5,000</td>
+            <td>15% (porcupine digging)</td>
+            <td>Groundnut</td>
+            <td>Yes</td>
+          </tr>
+          <tr>
+            <td><input type="checkbox"></td>
+            <td><a href="#">CRPD10</a></td>
+            <td>2024</td>
+            <td>4.2 Hectres</td>
+            <td>5,000</td>
+            <td>15% (porcupine digging)</td>
+            <td>Groundnut</td>
+            <td>Yes</td>
+          </tr>
+        </tbody>
+      </table>
+    </main>
+  </div>
+</body>
+</html>
+

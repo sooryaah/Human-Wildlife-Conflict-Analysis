@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background-color: #004d26;
+      padding: 8px;
+    }
+
+    .dashboard-container {
+      max-width: 1680px;
+      background: #fff;
+      border-radius: 25px;
+      display: flex;
+      overflow: hidden;
+      margin: auto;
+      height: 760px;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 230px;
+      background-color: #fff;
+      border-right: 1px solid #eee;
+      border-radius: 15px 0 0 15px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .logo-section {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-align: center;
+    }
+
+    .logo-section img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .menu {
+      list-style: none;
+      margin-top: 20px;
+    }
+
+    .menu li {
+      margin: 25px 0;
+    }
+
+  
+    .menu li a:hover,
+    .menu li.active a {
+      
+      color: rgb(11, 11, 11);
+    }
+
+    .logout {
+      text-align: center;
+      color: #000;
+      border-radius: 8px;
+      padding: 10px;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .logout:hover {
+    
+      color: #0c0c0c;
+    }
+
+    /* Main Content */
+    .main-content {
+      flex: 1;
+      background-color: #f9f9f9;
+      border-radius: 0 15px 15px 0;
+      padding: 25px 35px;
+      overflow-y: auto;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .top-icons button {
+      background: none;
+      border: none;
+      font-size: 22px;
+      cursor: pointer;
+      margin-left: 12px;
+    }
+
+    .content-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 0.8fr;
+      gap: 20px;
+    }
+
+    .card {
+      background-color: #fff;
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    .heatmap h3 {
+      font-size: 18px;
+      margin-bottom: 10px;
+      color: #004d26;
+      cursor: pointer;
+    }
+
+    .heatmap-grid {
+      display: grid;
+      grid-template-columns: repeat(12, auto);
+      gap: 3px;
+    }
+
+    .cell {
+      width: 10px;
+      height: 10px;
+      border-radius: 2px;
+    }
+
+    .cell.low { background-color: #d0f0c0; }
+    .cell.mid { background-color: #7ecf77; }
+    .cell.high { background-color: #2b8a3e; }
+
+    .legend {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 12px;
+      color: #666;
+      margin-top: 10px;
+    }
+
+    .legend-box {
+      width: 15px;
+      height: 10px;
+      margin: 0 4px;
+      border-radius: 2px;
+    }
+
+    .legend-box.low { background-color: #d0f0c0; }
+    .legend-box.mid { background-color: #7ecf77; }
+    .legend-box.high { background-color: #2b8a3e; }
+
+    .right-column {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .pie-chart-container, .analytics-chart-container {
+      height: 200px;
+      position: relative;
+    }
+
+    .weather {
+      background: linear-gradient(180deg, #003f1a, #004d26);
+      color: #fff;
+      text-align: center;
+      padding: 25px 20px;
+      border-radius: 20px;
+    }
+
+    .weather h1 {
+      font-size: 44px;
+      margin: 10px 0;
+    }
+
+    .dot {
+      height: 10px;
+      width: 10px;
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 8px;
+    }
+
+    .tiger { background: #ffb347; }
+    .elephant { background: #4a90e2; }
+    .boar { background: #f3c78e; }
+
+    .menu li a {
+  text-decoration: none;
+  color: #333;
+  display: block;
+  padding: 10px 15px;
+  border-radius: 6px;
+  transition: 0.3s;
+}
+
+.menu li.active a {
+
+  color: rgb(10, 9, 9);
+}
+
+  </style>
+</head>
+<body>
+  <div class="dashboard-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="logo-section">
+        <img src="https://i.pinimg.com/1200x/96/4c/c7/964cc747066dc0434dd458071c309b22.jpg" alt="logo">
+        <p style="margin:0; font-size:16px; font-weight:600;">Welcome, Admin</p>
+      </div>
+
+        
+   <ul class="menu">
+  <li class="{% if request.path == '/superadmin/dashboard/' %}active{% endif %}">
+    <a href="{% url 'admin_dashboard' %}">📊 Dashboard</a>
+  </li>
+
+  <li class="{% if request.path == '/admin_tracking/' %}active{% endif %}">
+    <a href="{% url 'admin_tracking' %}">📍 Tracking</a>
+  </li>
+
+  <li class="{% if request.path == '/analytic/' %}active{% endif %}">
+    <a href="{% url 'analytic' %}">📈 Analytics</a>
+  </li>
+</ul>
+
+<a href="{% url 'logout' %}" class="logout">🚪 Logout</a>
+
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="topbar">
+        <h2>Human Wildlife Conflict Analysis</h2>
+        <div class="top-icons">
+          <button>⚙️</button>
+          <button>🔔</button>
+        </div>
+      </div>
+
+      <div class="content-grid">
+        <!-- Heatmap -->
+        <div class="card heatmap">
+          <h3 onclick="window.location.href='{% url 'admin_tracking' %}'">
+            Human Wildlife Conflict Analysis
+          </h3>
+          <div class="heatmap-grid" id="heatmap"></div>
+          <div class="legend">
+            <span>Less</span>
+            <div class="legend-box low"></div>
+            <div class="legend-box mid"></div>
+            <div class="legend-box high"></div>
+            <span>More</span>
+          </div>
+        </div>
+
+        <!-- Right Column -->
+        <div class="right-column">
+          <div class="card pie-chart">
+            <div class="pie-chart-container">
+              <canvas id="animalPieChart"></canvas>
+            </div>
+            <div class="legend">
+              <p><span class="dot tiger"></span>Tiger - 20%</p>
+              <p><span class="dot elephant"></span>Elephants - 65%</p>
+              <p><span class="dot boar"></span>Wild Boars - 15%</p>
+            </div>
+          </div>
+
+          <div class="card weather">
+            <h3>Weather</h3>
+            <h1>24°</h1>
+            <p>High: 29 | Low: 23</p>
+            <p>Drizzle</p>
+          </div>
+        </div>
+
+        <!-- Analytics -->
+        <div class="card analytics">
+          <h3>Analytics</h3>
+          <div class="analytics-chart-container">
+            <canvas id="cropChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    /* DONUT CHART */
+    const pieCtx = document.getElementById("animalPieChart").getContext("2d");
+    new Chart(pieCtx, {
+      type: "doughnut",
+      data: {
+        labels: ["Tiger", "Elephants", "Wild Boars"],
+        datasets: [{
+          data: [20, 65, 15],
+          backgroundColor: ["#ffb347", "#4a90e2", "#f3c78e"],
+          cutout: "75%",
+          borderWidth: 0
+        }]
+      },
+      options: { plugins: { legend: { display: false } } }
+    });
+
+    /* LINE CHART */
+    const cropCtx = document.getElementById("cropChart").getContext("2d");
+    new Chart(cropCtx, {
+      type: "line",
+      data: {
+        labels: ["Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+        datasets: [
+          { label: "Crop 1", data: [2, 3, 5, 6, 5, 7], borderColor: "#ff4d4d", fill: false, tension: 0.4 },
+          { label: "Crop 2", data: [1, 2, 3, 2, 4, 6], borderColor: "#00c851", fill: false, tension: 0.4 }
+        ]
+      },
+      options: { plugins: { legend: { labels: { usePointStyle: true } } } }
+    });
+
+    /* SIMPLE HEATMAP GENERATION */
+    const heatmap = document.getElementById("heatmap");
+    const rows = 6, cols = 12;
+    for (let i = 0; i < rows * cols; i++) {
+      const div = document.createElement("div");
+      const r = Math.random();
+      div.className = "cell " + (r < 0.33 ? "low" : r < 0.66 ? "mid" : "high");
+      heatmap.appendChild(div);
+    }
+  </script>
+</body>
+</html>

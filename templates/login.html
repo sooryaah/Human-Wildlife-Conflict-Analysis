@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+<style>
+    * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background-color: #004d26;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.login-container {
+  width: 110%;
+  max-width: 1687px;
+  height: 760px;
+  background-color: #fff;
+  border-radius: 25px;
+  display: flex;
+  overflow: hidden;
+  
+}
+
+/* Left image side */
+.login-image {
+  flex: 1;
+  background: url('https://i.pinimg.com/736x/99/c5/be/99c5be5f085704d8654a553d0f1c9a47.jpg') no-repeat center center/cover;
+}
+
+/* Right form side */
+.login-form {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+}
+
+.form-content {
+  width: 80%;
+  max-width: 350px;
+  text-align: center;
+}
+
+.logo {
+  width: 80px;
+  margin-bottom: 15px;
+}
+
+h2 {
+  font-size: 24px;
+  color: #000;
+  margin-bottom: 25px;
+}
+
+.input-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+label {
+  display: block;
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 8px 10px;
+  background-color: #f9f9f9;
+}
+
+.icon {
+  margin-right: 8px;
+  font-size: 16px;
+}
+
+input {
+  border: none;
+  outline: none;
+  background: transparent;
+  flex: 1;
+  font-size: 14px;
+}
+
+.signin-btn {
+  width: 100%;
+  background-color: #0078ff;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+  transition: 0.3s;
+}
+
+.signin-btn:hover {
+  background-color: #005dc1;
+}
+
+.forgot {
+  display: block;
+  margin-top: 15px;
+  color: #000;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.forgot:hover {
+  text-decoration: underline;
+}
+
+</style>
+  <div class="login-container">
+    <!-- Left side (Forest Image) -->
+    <div class="login-image"></div>
+
+    <!-- Right side (Login Form) -->
+    <div class="login-form">
+      <div class="form-content">
+        <img src="https://i.pinimg.com/1200x/96/4c/c7/964cc747066dc0434dd458071c309b22.jpg" alt="Logo" class="logo">
+
+        <h2>Sign In</h2>
+
+        <form method="POST" action="{% url 'superadmin_login' %}" id="signinForm" onsubmit="return validateForm()">
+  {% csrf_token %}
+  {% if messages %}
+  <div class="messages" id="message-box">
+    {% for message in messages %}
+      <p style="color:red;">{{ message }}</p>
+    {% endfor %}
+  </div>
+{% endif %}
+
+  <div class="input-group">
+    <label>Username</label>
+    <div class="input-wrapper">
+      <span class="icon">👤</span>
+      <input type="text" name="username" id="username" placeholder="Enter your username" required>
+    </div>
+  </div>
+
+  <div class="input-group">
+    <label>Password</label>
+    <div class="input-wrapper">
+      <span class="icon">🔒</span>
+      <input type="password" name="password" id="password" placeholder="***********" required>
+    </div>
+  </div>
+
+  <button type="submit" class="signin-btn">SIGN IN</button>
+  <a href="#" class="forgot">Forgot Password?</a>
+
+  
+</form>
+      </div>
+    </div>
+  </div>
+
+ <script>
+    function validateForm() {
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value.trim();
+
+  if (email === "" || password === "") {
+    alert("Please fill out all fields.");
+    return false;
+  }
+  alert("Login successful! (Prototype only)");
+  return false; // prevent actual form submission for demo
+}
+
+ </script>
+<script>
+  // Automatically hide messages after 3 seconds
+  setTimeout(function() {
+    const msgBox = document.getElementById("message-box");
+    if (msgBox) {
+      msgBox.style.display = "none";
+    }
+  }, 3000); // 3000 milliseconds = 3 seconds
+</script>
+
+</body>
+</html>
